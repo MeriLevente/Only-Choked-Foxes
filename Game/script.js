@@ -2,6 +2,7 @@ var player = document.querySelector(".palyer")
 var game = document.querySelector("#game")
 var playerRadius = 50
 var gameWidth = game.clientWidth
+var alive = true
 
 document.onmousemove = function(event) {
     if(event.clientX-playerRadius-10 < 200){
@@ -54,6 +55,7 @@ function move() {
         element.style.top = element.offsetTop + 2 + "px"
         if (element.offsetTop > 800) {
             element.remove()
+            GameOver()
         }
     });
     ammos.forEach(element => {
@@ -88,7 +90,23 @@ function myFunction(e) {
   player.style.left = x- playerRadius + "px"
 }
 
+function AddCity(){
+    let image = document.createElement('img')
+    image.src = "./images/city2.png"
+    image.width = gameWidth
+    image.style.height = 200 + "px"
+    image.style.marginTop = 700 + 'px'
+    game.append(image)
+}
+
+function GameOver(){
+    alive = false
+    game.className = "gameover"
+    game.innerHTML = "<h1>Game Over!</h1>"
+}
+
 setInterval(enemies, 500)
 setInterval(move, 5)
 setInterval(shoot, 200)
+AddCity()
 
